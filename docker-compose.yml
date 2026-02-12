@@ -1,0 +1,30 @@
+services:
+  hs110-poller:
+    build: .
+    environment:
+      HS110_HOSTS: "server_rack:192.168.1.100,desk:192.168.1.101"
+      INFLUXDB_URL: "http://influxdb:8086"
+      INFLUXDB_TOKEN: "my-secret-token"
+      INFLUXDB_ORG: "myorg"
+      INFLUXDB_BUCKET: "energy"
+      POLL_INTERVAL: "10"
+    restart: unless-stopped
+    # depends_on:
+    #   - influxdb
+
+  # influxdb:
+  #   image: influxdb:2
+  #   ports:
+  #     - "8086:8086"
+  #   volumes:
+  #     - influxdb-data:/var/lib/influxdb2
+  #   environment:
+  #     DOCKER_INFLUXDB_INIT_MODE: setup
+  #     DOCKER_INFLUXDB_INIT_USERNAME: admin
+  #     DOCKER_INFLUXDB_INIT_PASSWORD: changeme123
+  #     DOCKER_INFLUXDB_INIT_ORG: myorg
+  #     DOCKER_INFLUXDB_INIT_BUCKET: energy
+  #     DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: my-secret-token
+
+# volumes:
+#   influxdb-data:
